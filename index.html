@@ -1,32 +1,3 @@
-<?php
-include 'connexion.php';
-
-  // Vérification si le formulaire a été soumis
-  if (isset($_POST['rechercher'])) {
-      // Récupérer les données du formulaire
-      $ville_depart = $_POST['ville_depart'];
-      $ville_arrivee = $_POST['ville_arrivee'];
-      $heure_depart = $_POST['heure_depart'];
-
-      // Requête SQL pour rechercher les trajets correspondant aux critères
-      $sql = "SELECT * FROM trajet_men WHERE ville_depart=:ville_depart AND ville_arrivé=:ville_arrivee AND heure_depart=:heure_depart";
-      $stmt = $conn->prepare($sql);
-      $stmt->bindParam(':ville_depart', $ville_depart);
-      $stmt->bindParam(':ville_arrivee', $ville_arrivee);
-      $stmt->bindParam(':heure_depart', $heure_depart);
-      $stmt->execute();
-      $resultat = $stmt->fetchAll();
-
-      // Vérification si des résultats ont été trouvés
-      if ($resultat) {
-          // Redirection vers la page d'accueil avec les résultats
-          header('Location: agence_dispo.php?ville_depart=' . $ville_depart . '&ville_arrivee=' . $ville_arrivee . '&heure_depart=' . $heure_depart);
-          exit();
-      } else {
-          echo "Aucun résultat trouvé.";
-      }
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,6 +33,7 @@ include 'connexion.php';
 <body>
 
   <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center ">
   <div class="container-fluid container-xxl d-flex align-items-center">
         
 
@@ -73,7 +45,7 @@ include 'connexion.php';
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto active" href="index.html">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="agence.php">Agence</a></li>
           <li><a class="nav-link scrollto" href="tourisme.php">Tourisme</a></li>
